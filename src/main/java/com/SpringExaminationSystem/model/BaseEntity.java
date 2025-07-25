@@ -16,6 +16,9 @@ import lombok.Setter;
 @Setter
 
 public class BaseEntity {
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
     @CreatedDate
     private Date createdAt;
     @CreatedBy
