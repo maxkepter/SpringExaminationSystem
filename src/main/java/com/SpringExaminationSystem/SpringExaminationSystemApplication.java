@@ -3,7 +3,6 @@ package com.SpringExaminationSystem;
 import org.springframework.context.ApplicationContext;
 
 import com.SpringExaminationSystem.model.user.User;
-import com.SpringExaminationSystem.repository.user.UserRepo;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class SpringExaminationSystemApplication {
 
 		// List<User> user = userRepo.findAll();
 
-		System.out.println(user);
+		System.out.println();
 
 	}
 }

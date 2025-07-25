@@ -3,7 +3,7 @@ package com.SpringExaminationSystem.model.user;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +24,7 @@ import lombok.Setter;
 @Entity
 @Component
 @Table(name = "Student")
-public class Student extends ObjectIdentify<Integer> {
+public class Student extends BaseEntity {
     @Id
     private Integer userID;
 
@@ -35,8 +35,4 @@ public class Student extends ObjectIdentify<Integer> {
     @JoinColumn(name = "userID", referencedColumnName = "userID", insertable = false, updatable = false)
     private User user;
 
-    @Override
-    public Integer getId() {
-        return userID;
-    }
 }

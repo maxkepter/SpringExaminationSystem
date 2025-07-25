@@ -7,7 +7,7 @@ import java.util.Set;
 
 import com.SpringExaminationSystem.adapter.ExamDetailConverter;
 import com.SpringExaminationSystem.adapter.StudentChoiceConverter;
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 import com.SpringExaminationSystem.model.exam.Exam;
 import com.SpringExaminationSystem.model.user.Student;
 
@@ -25,7 +25,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "StudentExam")
-public class StudentExam extends ObjectIdentify<Integer> {
+public class StudentExam extends BaseEntity {
     public static final int EXAM_CLOSED = 0;
     public static final int EXAM_DONE = 1;
     public static final int EXAM_DOING = 2;
@@ -86,8 +86,4 @@ public class StudentExam extends ObjectIdentify<Integer> {
     @JoinColumn(name = "UserID", nullable = false)
     private Student student;
 
-    @Override
-    public Integer getId() {
-        return studentExamID;
-    }
 }

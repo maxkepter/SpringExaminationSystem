@@ -1,6 +1,6 @@
 package com.SpringExaminationSystem.model.exam;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "QuestionExam")
 @IdClass(QuestionExam.class)
-public class QuestionExam extends ObjectIdentify<Integer> {
+public class QuestionExam extends BaseEntity {
     @Id
     private Integer examID;
 
@@ -35,8 +35,4 @@ public class QuestionExam extends ObjectIdentify<Integer> {
     @JoinColumn(name = "questionId", insertable = false, updatable = false)
     private Question question;
 
-    @Override
-    public Integer getId() {
-        return examID;
-    }
 }

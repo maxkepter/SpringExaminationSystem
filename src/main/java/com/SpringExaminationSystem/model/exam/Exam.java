@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 import com.SpringExaminationSystem.model.user.User;
 
 import jakarta.persistence.Column;
@@ -26,7 +26,7 @@ import lombok.Setter;
 @Scope("prottype")
 @Entity
 @Table(name = "Exam")
-public class Exam extends ObjectIdentify<Integer> {
+public class Exam extends BaseEntity {
     public static final String EXAM_ID = "examID";
     public static final String EXAM_DURATION = "duration";
     public static final String EXAM_CODE = "examCode";
@@ -54,9 +54,4 @@ public class Exam extends ObjectIdentify<Integer> {
     @JoinColumn(name = "userID", nullable = false)
     private User user;
 
-    @Override
-    public Integer getId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
-    }
 }

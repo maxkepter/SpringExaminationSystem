@@ -3,8 +3,7 @@ package com.SpringExaminationSystem.model.user;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
-import com.SpringExaminationSystem.model.log.LogStatus;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,7 +25,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Component
-public class LoginInfo extends ObjectIdentify<Integer> {
+public class LoginInfo extends BaseEntity {
     @Id
     private Integer userID;
 
@@ -41,12 +40,4 @@ public class LoginInfo extends ObjectIdentify<Integer> {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "statusId", nullable = false)
-    private LogStatus status;
-
-    @Override
-    public Integer getId() {
-        return userID;
-    }
 }

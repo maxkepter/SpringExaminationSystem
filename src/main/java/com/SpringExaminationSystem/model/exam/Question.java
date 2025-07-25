@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +25,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "Question")
-public class Question extends ObjectIdentify<Integer> {
+public class Question extends BaseEntity {
     @Id
     private Integer questionId;
 
@@ -48,8 +48,4 @@ public class Question extends ObjectIdentify<Integer> {
         throw new UnsupportedOperationException("Unimplemented method 'getOptions'");
     }
 
-    @Override
-    public Integer getId() {
-        return questionId;
-    }
 }

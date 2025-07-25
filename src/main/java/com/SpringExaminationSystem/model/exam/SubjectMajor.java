@@ -3,7 +3,7 @@ package com.SpringExaminationSystem.model.exam;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
@@ -23,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "SubjectMajor")
-public class SubjectMajor extends ObjectIdentify<SubjectMajorId> {
+public class SubjectMajor extends BaseEntity {
     @EmbeddedId
     private SubjectMajorId id;
 

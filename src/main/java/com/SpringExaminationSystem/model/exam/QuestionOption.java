@@ -2,7 +2,7 @@ package com.SpringExaminationSystem.model.exam;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +23,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "QuestionOption")
-public class QuestionOption extends ObjectIdentify<Integer> {
+public class QuestionOption extends BaseEntity {
     @Id
     private Integer optionId;
 
@@ -38,8 +38,4 @@ public class QuestionOption extends ObjectIdentify<Integer> {
     @JoinColumn(name = "questionId", nullable = false)
     private Question question;
 
-    @Override
-    public Integer getId() {
-        return optionId;
-    }
 }

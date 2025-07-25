@@ -2,7 +2,7 @@ package com.SpringExaminationSystem.model.exam;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "Subject")
-public class Subject extends ObjectIdentify<Integer> {
+public class Subject extends BaseEntity {
     @Id
     private Integer subID;
 
@@ -30,8 +30,4 @@ public class Subject extends ObjectIdentify<Integer> {
     @Column(nullable = false)
     private boolean isDisable;
 
-    @Override
-    public Integer getId() {
-        return subID;
-    }
 }

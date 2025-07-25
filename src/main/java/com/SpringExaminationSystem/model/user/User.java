@@ -3,7 +3,7 @@ package com.SpringExaminationSystem.model.user;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "[User]")
 @ToString
-public class User extends ObjectIdentify<Integer> {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userID;
@@ -38,10 +38,5 @@ public class User extends ObjectIdentify<Integer> {
     private Integer role;
     @Column(nullable = false, unique = true)
     private String email;
-
-    @Override
-    public Integer getId() {
-        return userID;
-    }
 
 }

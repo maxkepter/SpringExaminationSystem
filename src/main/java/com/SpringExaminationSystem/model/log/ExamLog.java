@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 import com.SpringExaminationSystem.model.exam.student.StudentExam;
 
 import jakarta.persistence.Column;
@@ -27,7 +27,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "ExamLog")
-public class ExamLog extends ObjectIdentify<Integer> {
+public class ExamLog extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer examLogId;
@@ -42,8 +42,4 @@ public class ExamLog extends ObjectIdentify<Integer> {
     @JoinColumn(name = "studentExamID", nullable = false)
     private StudentExam studentExam;
 
-    @Override
-    public Integer getId() {
-        return examLogId;
-    }
 }

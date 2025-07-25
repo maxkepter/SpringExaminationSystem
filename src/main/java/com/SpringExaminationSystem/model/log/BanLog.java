@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 import com.SpringExaminationSystem.model.user.User;
 
 import jakarta.persistence.Column;
@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Scope("prototype")
 @Entity
-public class BanLog extends ObjectIdentify<Integer> {
+public class BanLog extends BaseEntity {
     public static final String FIELD_USER = "user";
     public static final String FIELD_STATUS = "status";
     public static final String FIELD_START_TIME = "startTime";
@@ -45,12 +45,7 @@ public class BanLog extends ObjectIdentify<Integer> {
     @JoinColumn(name = "userID", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "statusId", nullable = false)
-    private LogStatus status;
+    @Column(nullable = false, length = 100)
+    private String status;
 
-    @Override
-    public Integer getId() {
-        return logId;
-    }
 }

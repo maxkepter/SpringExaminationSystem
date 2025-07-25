@@ -2,7 +2,7 @@ package com.SpringExaminationSystem.model.exam;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.ObjectIdentify;
+import com.SpringExaminationSystem.model.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "Chapter")
-public class Chapter extends ObjectIdentify<Integer> {
+public class Chapter extends BaseEntity {
     @Id
     private Integer chapterID;
 
@@ -36,8 +36,4 @@ public class Chapter extends ObjectIdentify<Integer> {
     @JoinColumn(name = "subID", nullable = false)
     private Subject subject;
 
-    @Override
-    public Integer getId() {
-        return chapterID;
-    }
 }
