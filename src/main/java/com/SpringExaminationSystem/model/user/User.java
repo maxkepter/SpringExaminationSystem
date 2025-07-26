@@ -1,5 +1,7 @@
 package com.SpringExaminationSystem.model.user;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +28,15 @@ import lombok.ToString;
 @Entity
 @Table(name = "[User]")
 @ToString
+@SQLDelete(sql = "update [User] set isActive=0 where userId=?")
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userID;
+    private Integer userId;
+    @Column(name = "userName", unique = true, nullable = false, length = 255)
+    private String userName;
+    @Column(nullable = false)
+    private String password;
     @Column(nullable = false, name = "firstName")
     private String firstName;
     @Column(nullable = false)

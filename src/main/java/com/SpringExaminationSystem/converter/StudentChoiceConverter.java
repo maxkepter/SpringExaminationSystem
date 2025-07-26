@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.adapter;
+package com.SpringExaminationSystem.converter;
 
 import java.util.Map;
 import java.util.Set;

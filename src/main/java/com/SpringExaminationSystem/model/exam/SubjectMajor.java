@@ -23,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "SubjectMajor")
-public class SubjectMajor extends BaseEntity {
+public class SubjectMajor {
     @EmbeddedId
     private SubjectMajorId id;
 
@@ -33,8 +33,8 @@ public class SubjectMajor extends BaseEntity {
     private Major major;
 
     @ManyToOne
-    @MapsId("subID")
-    @JoinColumn(name = "subID")
+    @MapsId("subId")
+    @JoinColumn(name = "subId")
     private Subject subject;
 
 }
@@ -46,7 +46,7 @@ public class SubjectMajor extends BaseEntity {
 @Embeddable
 class SubjectMajorId implements Serializable {
     private int majorId;
-    private int subID;
+    private int subId;
 
     @Override
     public boolean equals(Object o) {
@@ -57,11 +57,11 @@ class SubjectMajorId implements Serializable {
             return false;
         }
         SubjectMajorId that = (SubjectMajorId) o;
-        return majorId == that.majorId && subID == that.subID;
+        return majorId == that.majorId && subId == that.subId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(majorId, subID);
+        return Objects.hash(majorId, subId);
     }
 }

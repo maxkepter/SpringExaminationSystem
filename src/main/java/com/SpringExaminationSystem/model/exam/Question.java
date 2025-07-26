@@ -2,6 +2,7 @@ package com.SpringExaminationSystem.model.exam;
 
 import java.util.List;
 
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
 import com.SpringExaminationSystem.model.BaseEntity;
@@ -25,6 +26,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "Question")
+@SQLDelete(sql = "update Question set isActive=0 where questionId=?")
 public class Question extends BaseEntity {
     @Id
     private Integer questionId;
@@ -34,13 +36,10 @@ public class Question extends BaseEntity {
     private String questionContent;
 
     @Column(nullable = false)
-    private boolean isDisable;
-
-    @Column(nullable = false)
     private int difficulty;
 
     @ManyToOne
-    @JoinColumn(name = "chapterID", nullable = false)
+    @JoinColumn(name = "chapterId", nullable = false)
     private Chapter chapter;
 
     public List<QuestionOption> getOptions() {

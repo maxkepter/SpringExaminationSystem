@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.context.annotation.Scope;
 
 import com.SpringExaminationSystem.model.BaseEntity;
+import com.SpringExaminationSystem.model.BaseLog;
 import com.SpringExaminationSystem.model.exam.student.StudentExam;
 
 import jakarta.persistence.Column;
@@ -27,19 +28,13 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "ExamLog")
-public class ExamLog extends BaseEntity {
+public class ExamLog extends BaseLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer examLogId;
 
-    @Column(nullable = false)
-    private LocalDateTime time;
-
-    @Column(nullable = false, length = 255)
-    private String information;
-
     @ManyToOne
-    @JoinColumn(name = "studentExamID", nullable = false)
+    @JoinColumn(name = "studentExamId", nullable = false)
     private StudentExam studentExam;
 
 }

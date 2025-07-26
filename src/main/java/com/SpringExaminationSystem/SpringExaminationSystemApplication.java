@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringExaminationSystemApplication {
 
 	public static void main(String[] args) {
-		// SpringApplication.run(SpringExaminationSystemApplication.class, args);
+		SpringApplication.run(SpringExaminationSystemApplication.class, args);
 
 		ApplicationContext context = SpringApplication.run(SpringExaminationSystemApplication.class, args);
 

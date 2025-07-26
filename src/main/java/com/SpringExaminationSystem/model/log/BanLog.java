@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.context.annotation.Scope;
 
 import com.SpringExaminationSystem.model.BaseEntity;
+import com.SpringExaminationSystem.model.BaseLog;
 import com.SpringExaminationSystem.model.user.User;
 
 import jakarta.persistence.Column;
@@ -25,10 +26,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Scope("prototype")
 @Entity
-public class BanLog extends BaseEntity {
+public class BanLog extends BaseLog {
     public static final String FIELD_USER = "user";
-    public static final String FIELD_STATUS = "status";
-    public static final String FIELD_START_TIME = "startTime";
     public static final String FIELD_END_TIME = "endTime";
 
     @Id
@@ -36,16 +35,10 @@ public class BanLog extends BaseEntity {
     private Integer logId;
 
     @Column(nullable = false, columnDefinition = "DATETIME")
-    private LocalDateTime startTime;
-
-    @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime endTime;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
-
-    @Column(nullable = false, length = 100)
-    private String status;
 
 }

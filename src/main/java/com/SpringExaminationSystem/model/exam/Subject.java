@@ -1,5 +1,6 @@
 package com.SpringExaminationSystem.model.exam;
 
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
 import com.SpringExaminationSystem.model.BaseEntity;
@@ -20,14 +21,12 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "Subject")
+@SQLDelete(sql = "update Subject set isActive=0 where subId=?")
 public class Subject extends BaseEntity {
     @Id
-    private Integer subID;
+    private Integer subId;
 
     @Column(nullable = false, length = 100)
     private String subjectName;
-
-    @Column(nullable = false)
-    private boolean isDisable;
 
 }

@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.SpringExaminationSystem.adapter.ExamDetailConverter;
-import com.SpringExaminationSystem.adapter.StudentChoiceConverter;
+import org.hibernate.annotations.SQLDelete;
+
+import com.SpringExaminationSystem.converter.ExamDetailConverter;
+import com.SpringExaminationSystem.converter.StudentChoiceConverter;
 import com.SpringExaminationSystem.model.BaseEntity;
 import com.SpringExaminationSystem.model.exam.Exam;
-import com.SpringExaminationSystem.model.user.Student;
+import com.SpringExaminationSystem.model.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -25,13 +27,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "StudentExam")
+@SQLDelete(sql = "update StudentExam set isActive=0 where studentExamId=?")
 public class StudentExam extends BaseEntity {
     public static final int EXAM_CLOSED = 0;
     public static final int EXAM_DONE = 1;
     public static final int EXAM_DOING = 2;
     public static final int EXAM_SUSPENDED = 3;
     public static final String[] EXAM_STATUS_INFO = { "Exam closed", "Exam done", "Exam doing", "Exam suspended" };
-    public static final String STUDENT_EXAM_ID = "studentExamID";
     public static final String EXAM_STATUS = "examStatus";
     public static final String SCORE = "score";
     public static final String SUBMIT_TIME = "submitTime";
@@ -41,7 +43,6 @@ public class StudentExam extends BaseEntity {
     public static final String EXAM = "exam";
     public static final String STUDENT = "student";
     public static final String[] ATTRIBUTE_NAME = {
-            STUDENT_EXAM_ID,
             EXAM_STATUS,
             SCORE,
             SUBMIT_TIME,
@@ -54,7 +55,7 @@ public class StudentExam extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer studentExamID;
+    private Integer studentExamId;
 
     @Column(nullable = false)
     private int examStatus;
@@ -79,11 +80,11 @@ public class StudentExam extends BaseEntity {
     private Map<Integer, Set<Integer>> studentChoice;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ExamID", nullable = false)
+    @JoinColumn(name = "ExamId", nullable = false)
     private Exam exam;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserID", nullable = false)
-    private Student student;
+    @JoinColumn(name = "UserId", nullable = false)
+    private User user;
 
 }

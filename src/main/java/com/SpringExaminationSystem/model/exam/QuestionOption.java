@@ -1,5 +1,6 @@
 package com.SpringExaminationSystem.model.exam;
 
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
 import com.SpringExaminationSystem.model.BaseEntity;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Scope("prototype")
 @Entity
 @Table(name = "QuestionOption")
+@SQLDelete(sql = "update QuestionOption set isActive=0 where optionId=?")
 public class QuestionOption extends BaseEntity {
     @Id
     private Integer optionId;

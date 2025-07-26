@@ -2,7 +2,9 @@ package com.SpringExaminationSystem.model.exam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
 import com.SpringExaminationSystem.model.BaseEntity;
@@ -12,6 +14,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -23,17 +27,18 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Scope("prottype")
+@Scope("prototype")
 @Entity
 @Table(name = "Exam")
+@SQLDelete(sql = "update Exam set isActive=0 where examId=?")
 public class Exam extends BaseEntity {
-    public static final String EXAM_ID = "examID";
+    public static final String EXAM_ID = "examId";
     public static final String EXAM_DURATION = "duration";
     public static final String EXAM_CODE = "examCode";
     public static final String EXAM_NAME = "examName";
 
     @Id
-    private Integer examID;
+    private Integer examId;
 
     @Column(nullable = false)
     private int duration;
@@ -50,8 +55,12 @@ public class Exam extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String examName;
 
+    @ManyToMany(targetEntity = Question.class)
+    @JoinTable(name = "Exam_Question", joinColumns = @JoinColumn(name = "examID", referencedColumnName = "examID"), inverseJoinColumns = @JoinColumn(name = "questionID", referencedColumnName = "questionID"))
+    private List<Question> questions;
+
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
 }
