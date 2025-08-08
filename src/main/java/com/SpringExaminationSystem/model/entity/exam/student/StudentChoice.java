@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.model.exam.student;
+package com.SpringExaminationSystem.model.entity.exam.student;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 

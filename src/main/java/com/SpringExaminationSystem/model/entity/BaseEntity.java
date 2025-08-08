@@ -1,9 +1,11 @@
-package com.SpringExaminationSystem.model;
+package com.SpringExaminationSystem.model.entity;
 
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
@@ -13,13 +15,14 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 @Getter
 @Setter
-public abstract class BaseLog {
-    public static final String FIELD_INFOMATION = "infomation";
+public abstract class BaseEntity {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
@@ -27,6 +30,11 @@ public abstract class BaseLog {
     @CreatedBy
     @Column(updatable = false)
     private String createdBy;
-    @Column(updatable = false, length = 100)
-    private String infomation;
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    @LastModifiedBy
+    private String updatedBy;
+    private boolean isActive = true;
+
 }

@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.model.exam;
+package com.SpringExaminationSystem.model.entity.exam;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

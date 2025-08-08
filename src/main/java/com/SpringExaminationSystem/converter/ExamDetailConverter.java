@@ -2,7 +2,7 @@ package com.SpringExaminationSystem.converter;
 
 import java.util.List;
 
-import com.SpringExaminationSystem.model.exam.student.QuestionWithOptions;
+import com.SpringExaminationSystem.model.entity.exam.student.QuestionWithOptions;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;

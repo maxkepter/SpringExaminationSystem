@@ -1,12 +1,12 @@
-package com.SpringExaminationSystem.model.log;
+package com.SpringExaminationSystem.model.entity.log;
 
 import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.BaseEntity;
-import com.SpringExaminationSystem.model.BaseLog;
-import com.SpringExaminationSystem.model.user.User;
+import com.SpringExaminationSystem.model.entity.BaseEntity;
+import com.SpringExaminationSystem.model.entity.BaseLog;
+import com.SpringExaminationSystem.model.entity.exam.student.StudentExam;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,19 +27,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Scope("prototype")
 @Entity
-public class BanLog extends BaseLog {
-    public static final String FIELD_USER = "user";
-    public static final String FIELD_END_TIME = "endTime";
-
+@Table(name = "ExamLog")
+public class ExamLog extends BaseLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer logId;
-
-    @Column(nullable = false, columnDefinition = "DATETIME")
-    private LocalDateTime endTime;
+    private Integer examLogId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    @JoinColumn(name = "studentExamId", nullable = false)
+    private StudentExam studentExam;
 
 }

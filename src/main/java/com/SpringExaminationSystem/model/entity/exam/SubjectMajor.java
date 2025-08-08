@@ -1,9 +1,9 @@
-package com.SpringExaminationSystem.model.exam;
+package com.SpringExaminationSystem.model.entity.exam;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.SpringExaminationSystem.model.BaseEntity;
+import com.SpringExaminationSystem.model.entity.BaseEntity;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;

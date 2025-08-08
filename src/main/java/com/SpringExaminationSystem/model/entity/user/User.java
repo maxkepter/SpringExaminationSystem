@@ -1,17 +1,20 @@
-package com.SpringExaminationSystem.model.user;
+package com.SpringExaminationSystem.model.entity.user;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.SpringExaminationSystem.model.BaseEntity;
+import com.SpringExaminationSystem.model.entity.BaseEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,27 +26,28 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
-@Scope("prototype")
 @Entity
 @Table(name = "[User]")
 @ToString
 @SQLDelete(sql = "update [User] set isActive=0 where userId=?")
 public class User extends BaseEntity {
+
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
-    @Column(name = "userName", unique = true, nullable = false, length = 255)
-    private String userName;
-    @Column(nullable = false)
-    private String password;
     @Column(nullable = false, name = "firstName")
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-    @Column(nullable = false)
-    private Integer role;
     @Column(nullable = false, unique = true)
     private String email;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private AuthInfo authInfo;
 
 }

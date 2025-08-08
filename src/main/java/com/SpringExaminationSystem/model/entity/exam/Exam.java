@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.model.exam;
+package com.SpringExaminationSystem.model.entity.exam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,8 +7,8 @@ import java.util.List;
 import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
-import com.SpringExaminationSystem.model.BaseEntity;
-import com.SpringExaminationSystem.model.user.User;
+import com.SpringExaminationSystem.model.entity.BaseEntity;
+import com.SpringExaminationSystem.model.entity.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

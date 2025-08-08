@@ -1,6 +1,6 @@
 package com.SpringExaminationSystem.repository.exam.student;
 
-import com.SpringExaminationSystem.model.exam.student.StudentExam;
+import com.SpringExaminationSystem.model.entity.exam.student.StudentExam;
 import com.SpringExaminationSystem.repository.SoftDeleteRepository;
 
 import org.springframework.stereotype.Repository;

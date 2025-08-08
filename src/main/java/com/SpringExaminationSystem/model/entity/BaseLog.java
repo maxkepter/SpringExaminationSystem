@@ -1,16 +1,12 @@
-package com.SpringExaminationSystem.model;
+package com.SpringExaminationSystem.model.entity;
 
 import java.util.Date;
 
-import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
@@ -22,11 +18,8 @@ import lombok.Setter;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public abstract class BaseEntity {
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
+public abstract class BaseLog {
+    public static final String FIELD_INFOMATION = "infomation";
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
@@ -34,11 +27,6 @@ public abstract class BaseEntity {
     @CreatedBy
     @Column(updatable = false)
     private String createdBy;
-    @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
-    @LastModifiedBy
-    private String updatedBy;
-    private boolean isActive = true;
-
+    @Column(updatable = false, length = 100)
+    private String infomation;
 }
