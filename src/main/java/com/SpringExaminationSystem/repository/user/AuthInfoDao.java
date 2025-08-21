@@ -8,4 +8,6 @@ public interface AuthInfoDao extends JpaRepository<AuthInfo, Integer> {
     public AuthInfo findByUserName(String userName);
 
     public AuthInfo findByUserId(Integer userId);
+
+    public boolean existsByUserName(String userName);
 }

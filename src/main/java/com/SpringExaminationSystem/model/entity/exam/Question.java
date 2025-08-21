@@ -9,26 +9,24 @@ import com.SpringExaminationSystem.model.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Builder
 @Scope("prototype")
 @Entity
 @Table(name = "Question")
 @SQLDelete(sql = "update Question set isActive=0 where questionId=?")
 public class Question extends BaseEntity {
     @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Integer questionId;
 
     @Lob

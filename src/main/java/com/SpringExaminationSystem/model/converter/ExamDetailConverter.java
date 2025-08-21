@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.converter;
+package com.SpringExaminationSystem.model.converter;
 
 import java.util.List;
 

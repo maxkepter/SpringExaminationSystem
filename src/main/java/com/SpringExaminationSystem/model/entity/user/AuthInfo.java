@@ -13,14 +13,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 public class AuthInfo {
+
     public static final String ROLE_FIELD = "role";
+    public static final Integer ROLE_ADMIN = 0;
+    public static final Integer ROLE_USER = 1;
     public static final String[] AUTHORIES = new String[] { "ADMIN", "USER" };
 
     @Id

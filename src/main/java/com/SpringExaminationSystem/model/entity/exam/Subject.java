@@ -9,22 +9,18 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Builder
 @Scope("prototype")
 @Entity
 @Table(name = "Subject")
 @SQLDelete(sql = "update Subject set isActive=0 where subId=?")
 public class Subject extends BaseEntity {
     @Id
-    private Integer subId;
+    private String subjectCode;
 
     @Column(nullable = false, length = 100)
     private String subjectName;

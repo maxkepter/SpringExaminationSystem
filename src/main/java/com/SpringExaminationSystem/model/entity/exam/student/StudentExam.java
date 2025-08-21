@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.hibernate.annotations.SQLDelete;
 
-import com.SpringExaminationSystem.converter.ExamDetailConverter;
-import com.SpringExaminationSystem.converter.StudentChoiceConverter;
+import com.SpringExaminationSystem.model.converter.ExamDetailConverter;
+import com.SpringExaminationSystem.model.converter.StudentChoiceConverter;
 import com.SpringExaminationSystem.model.entity.BaseEntity;
 import com.SpringExaminationSystem.model.entity.exam.Exam;
 import com.SpringExaminationSystem.model.entity.user.User;

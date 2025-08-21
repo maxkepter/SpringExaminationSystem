@@ -17,10 +17,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 @Entity
 @Table(name = "SubjectMajor")
 public class SubjectMajor {
@@ -39,14 +40,12 @@ public class SubjectMajor {
 
 }
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Builder
 @Embeddable
 class SubjectMajorId implements Serializable {
-    private int majorId;
-    private int subId;
+    private String majorCode;
+    private String subCode;
 
     @Override
     public boolean equals(Object o) {
@@ -57,11 +56,11 @@ class SubjectMajorId implements Serializable {
             return false;
         }
         SubjectMajorId that = (SubjectMajorId) o;
-        return majorId == that.majorId && subId == that.subId;
+        return majorCode == that.majorCode && subCode == that.subCode;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(majorId, subId);
+        return Objects.hash(majorCode, subCode);
     }
 }

@@ -21,10 +21,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 @Scope("prototype")
 @Entity
 @Table(name = "ExamLog")

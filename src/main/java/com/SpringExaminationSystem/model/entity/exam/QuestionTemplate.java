@@ -1,14 +1,10 @@
 package com.SpringExaminationSystem.model.entity.exam;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Builder
 public class QuestionTemplate {
     private String chapterNo;
     private String difficulty;

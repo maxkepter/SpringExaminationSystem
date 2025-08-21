@@ -7,29 +7,28 @@ import com.SpringExaminationSystem.model.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Builder
 @Scope("prototype")
 @Entity
 @Table(name = "Chapter")
 @SQLDelete(sql = "update Chapter set isActive=0 where chapterId=?")
 public class Chapter extends BaseEntity {
+
     @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Integer chapterId;
 
-    @Column(nullable = false)
-    private int chapterNo;
+    @Column(nullable = false, length = 100)
+    private String chapterName;
 
     @ManyToOne
     @JoinColumn(name = "subId", nullable = false)

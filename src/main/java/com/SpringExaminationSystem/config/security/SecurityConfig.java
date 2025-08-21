@@ -14,8 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-@Configuration
-@EnableWebSecurity
+// @Configuration
+// @EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -45,7 +45,10 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable()) // Disable form login for simplicity
                 .logout(logout -> logout
                         .logoutUrl("/api/auth/logout")
-                        .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK)));
+                        .logoutSuccessHandler((req, res, auth) -> {
+                            req.getSession().invalidate();
+                            res.setStatus(HttpServletResponse.SC_OK);
+                        }));
         return http.build();
     }
 }
