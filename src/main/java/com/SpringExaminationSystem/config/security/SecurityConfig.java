@@ -14,8 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-// @Configuration
-// @EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
-                                .anyRequest().authenticated())
+                                .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authenticationProvider(authProvider())
                 .httpBasic(httpBasic -> httpBasic.disable())

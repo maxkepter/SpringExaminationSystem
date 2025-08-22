@@ -21,7 +21,8 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "SubjectMajor")
 public class SubjectMajor {

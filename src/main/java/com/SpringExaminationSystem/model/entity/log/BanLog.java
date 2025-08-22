@@ -23,7 +23,8 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Scope("prototype")
 @Entity
 public class BanLog extends BaseLog {

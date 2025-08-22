@@ -1,13 +1,14 @@
-package com.SpringExaminationSystem.model.dto.request.exam;
+package com.SpringExaminationSystem.model.dto.common;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@Builder
+@NoArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class MajorCreationRequest {
+public class MajorDTO {
     String majorCode;
     String majorName;
 }

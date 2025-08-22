@@ -2,6 +2,7 @@ package com.SpringExaminationSystem.model.dto.request.exam;
 
 import java.util.List;
 
+import com.SpringExaminationSystem.model.dto.common.MajorDTO;
 import com.SpringExaminationSystem.model.entity.exam.Major;
 
 import lombok.Builder;
@@ -14,6 +15,6 @@ import lombok.experimental.FieldDefaults;
 public class SubjectCreationRequest {
     String subjectCode;
     String subjectName;
-    List<MajorCreationRequest> majors;
+    List<MajorDTO> majors;
     List<String> chapters;
 }

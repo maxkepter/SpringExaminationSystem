@@ -17,7 +17,8 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class AuthInfo {
 

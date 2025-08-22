@@ -25,7 +25,8 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Scope("prototype")
 @Entity
 @Table(name = "ExamLog")
