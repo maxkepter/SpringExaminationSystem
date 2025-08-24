@@ -3,18 +3,22 @@ package com.SpringExaminationSystem.model.dto.request.exam;
 import java.util.List;
 
 import com.SpringExaminationSystem.model.dto.common.MajorDTO;
-import com.SpringExaminationSystem.model.entity.exam.Major;
-
-import lombok.Builder;
+import com.SpringExaminationSystem.model.dto.common.SubjectDTO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class SubjectCreationRequest {
-    String subjectCode;
-    String subjectName;
-    List<MajorDTO> majors;
+public class SubjectCreationRequest extends SubjectDTO {
+    List<String> majorCodes;
     List<String> chapters;
+
 }

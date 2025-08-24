@@ -13,12 +13,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Scope("prototype")
 @Entity
 @Table(name = "Chapter")
@@ -33,7 +37,7 @@ public class Chapter extends BaseEntity {
     private String chapterName;
 
     @ManyToOne
-    @JoinColumn(name = "subId", nullable = false)
+    @JoinColumn(name = "subjectCode", nullable = false)
     private Subject subject;
 
 }

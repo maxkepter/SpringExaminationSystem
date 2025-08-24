@@ -17,12 +17,13 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Scope("prototype")
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "QuestionOption")
 @SQLDelete(sql = "update QuestionOption set isActive=0 where optionId=?")
