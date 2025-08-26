@@ -9,7 +9,6 @@ import com.SpringExaminationSystem.model.entity.exam.Chapter;
 import com.SpringExaminationSystem.model.entity.exam.Major;
 import com.SpringExaminationSystem.model.entity.exam.Subject;
 import com.SpringExaminationSystem.model.mapper.exam.SubjectMapper;
-import com.SpringExaminationSystem.repository.exam.ChapterDao;
 import com.SpringExaminationSystem.repository.exam.SubjectDao;
 
 import lombok.RequiredArgsConstructor;

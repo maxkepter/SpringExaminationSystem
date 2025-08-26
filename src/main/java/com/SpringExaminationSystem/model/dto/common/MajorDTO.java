@@ -1,6 +1,5 @@
 package com.SpringExaminationSystem.model.dto.common;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;

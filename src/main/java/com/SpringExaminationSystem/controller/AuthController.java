@@ -20,7 +20,6 @@ import com.SpringExaminationSystem.model.dto.request.auth.RegisterRequest;
 import com.SpringExaminationSystem.model.entity.user.AuthInfo;
 import com.SpringExaminationSystem.model.entity.user.User;
 import com.SpringExaminationSystem.repository.user.AuthInfoDao;
-import com.SpringExaminationSystem.repository.user.UserDao;
 import com.SpringExaminationSystem.service.security.JwtService;
 
 import jakarta.servlet.http.HttpServletRequest;

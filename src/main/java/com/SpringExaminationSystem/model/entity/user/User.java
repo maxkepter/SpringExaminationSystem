@@ -1,9 +1,6 @@
 package com.SpringExaminationSystem.model.entity.user;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import com.SpringExaminationSystem.model.entity.BaseEntity;
 
@@ -19,9 +16,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Data
