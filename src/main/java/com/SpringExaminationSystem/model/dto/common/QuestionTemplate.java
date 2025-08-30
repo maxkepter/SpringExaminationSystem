@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.model.entity.exam;
+package com.SpringExaminationSystem.model.dto.common;
 
 import lombok.Builder;
 import lombok.Data;

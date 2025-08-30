@@ -1,5 +1,6 @@
 package com.SpringExaminationSystem.model.entity.exam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.SQLDelete;
@@ -46,11 +47,6 @@ public class Question extends BaseEntity {
     private Chapter chapter;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QuestionOption> options;
-
-    public List<QuestionOption> getOptions() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOptions'");
-    }
+    private List<QuestionOption> options = new ArrayList<>();
 
 }

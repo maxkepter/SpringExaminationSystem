@@ -12,13 +12,13 @@ import com.SpringExaminationSystem.service.exam.SubjectService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/exam")
+@RequestMapping("/subject")
 @RequiredArgsConstructor
 public class SubjectController {
     private final SubjectService subjectService;
     private final SubjectMapper subjectMapper;
 
-    @PostMapping("/subject")
+    @PostMapping
     public void addSubject(@RequestBody SubjectCreationRequest request) {
         System.out.println(request);
         subjectService.addSubject(request);

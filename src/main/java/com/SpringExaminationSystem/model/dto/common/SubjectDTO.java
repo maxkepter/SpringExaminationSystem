@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class SubjectDTO {
+
     String subjectCode;
     String subjectName;
 }
