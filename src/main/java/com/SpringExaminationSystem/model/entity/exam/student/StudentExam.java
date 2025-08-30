@@ -88,7 +88,7 @@ public class StudentExam extends BaseEntity {
     private Map<Integer, Set<Integer>> studentChoice;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ExamId", nullable = false)
+    @JoinColumn(name = "examCode", nullable = false)
     private Exam exam;
 
     @ManyToOne(fetch = FetchType.LAZY)

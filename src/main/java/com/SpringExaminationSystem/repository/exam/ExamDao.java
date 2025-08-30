@@ -6,6 +6,6 @@ import com.SpringExaminationSystem.repository.SoftDeleteRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ExamDao extends SoftDeleteRepository<Exam, Integer> {
+public interface ExamDao extends SoftDeleteRepository<Exam, String> {
 
 }

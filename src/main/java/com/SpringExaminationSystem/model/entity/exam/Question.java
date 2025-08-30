@@ -1,5 +1,6 @@
 package com.SpringExaminationSystem.model.entity.exam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.SQLDelete;
@@ -49,8 +50,6 @@ public class Question extends BaseEntity {
     private List<QuestionOption> options;
 
     public List<QuestionOption> getOptions() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOptions'");
+        return this.options != null ? this.options : new ArrayList<>();
     }
-
 }

@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @Scope("prototype")
 @Entity
 @Table(name = "Subject")
-@SQLDelete(sql = "update Subject set isActive=0 where subId=?")
+@SQLDelete(sql = "update Subject set isActive=0 where subjectCode=?")
 public class Subject extends BaseEntity {
     @Id
     private String subjectCode;
