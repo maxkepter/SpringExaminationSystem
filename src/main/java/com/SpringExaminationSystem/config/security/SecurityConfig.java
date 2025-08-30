@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers("/api/auth/**", "/h2-console/").permitAll()
                                 .requestMatchers("/api/user/**", "/api/exam/**").hasAnyRole("USER", "ADMIN")
-                                .anyRequest().authenticated())
+                                .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authenticationProvider(authProvider())
                 .httpBasic(httpBasic -> httpBasic.disable())

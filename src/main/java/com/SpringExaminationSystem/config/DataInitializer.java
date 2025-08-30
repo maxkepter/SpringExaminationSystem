@@ -25,7 +25,7 @@ import com.SpringExaminationSystem.repository.exam.QuestionOptionDao;
 import com.SpringExaminationSystem.repository.exam.SubjectDao;
 import com.SpringExaminationSystem.repository.user.UserDao;
 
-// @Component
+@Component
 public class DataInitializer implements CommandLineRunner {
 
     @Autowired
