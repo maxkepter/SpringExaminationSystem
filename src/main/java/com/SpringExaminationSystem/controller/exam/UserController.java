@@ -11,6 +11,9 @@ import com.SpringExaminationSystem.model.dto.common.AuthInfoDTO;
 import com.SpringExaminationSystem.model.dto.common.UserDTO;
 import com.SpringExaminationSystem.model.entity.user.User;
 import com.SpringExaminationSystem.service.exam.UserService;
+
+import jakarta.persistence.criteria.CriteriaBuilder.In;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +35,9 @@ public class UserController {
 
     @PutMapping("/role")
     public String editUserRole(@RequestBody AuthInfoDTO authInfoDTO) {
-        userService.editUserRole(authInfoDTO);
-        
+        Integer userId = authInfoDTO.getUserId();
+        Integer role = authInfoDTO.getRole();
+        userService.editUserRole(userId, role);
         return "Update user role successfully";
     }
 

@@ -13,6 +13,8 @@ import com.SpringExaminationSystem.model.mapper.exam.UserMapper;
 import com.SpringExaminationSystem.repository.user.AuthInfoDao;
 import com.SpringExaminationSystem.repository.user.UserDao;
 
+import jakarta.persistence.criteria.CriteriaBuilder.In;
+
 @Service
 public class UserService {
 
@@ -29,9 +31,9 @@ public class UserService {
     AuthInfoMapper authInfoMapper;
 
 
-    public void editUserRole(AuthInfoDTO authInfoDTO) {
-        AuthInfo authInfo = authInfoDao.findById(authInfoDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));   
-        authInfo.setRole(authInfoDTO.getRole());
+    public void editUserRole(Integer userId, Integer role) {
+        AuthInfo authInfo = authInfoDao.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));   
+        authInfo.setRole(role);
         authInfoDao.save(authInfo);
     }
 

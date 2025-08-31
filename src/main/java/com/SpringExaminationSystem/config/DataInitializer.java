@@ -16,6 +16,7 @@ import com.SpringExaminationSystem.model.entity.exam.Major;
 import com.SpringExaminationSystem.model.entity.exam.Question;
 import com.SpringExaminationSystem.model.entity.exam.QuestionOption;
 import com.SpringExaminationSystem.model.entity.exam.Subject;
+import com.SpringExaminationSystem.model.entity.user.AuthInfo;
 import com.SpringExaminationSystem.model.entity.user.User;
 import com.SpringExaminationSystem.repository.exam.ChapterDao;
 import com.SpringExaminationSystem.repository.exam.ExamDao;
@@ -23,31 +24,35 @@ import com.SpringExaminationSystem.repository.exam.MajorDao;
 import com.SpringExaminationSystem.repository.exam.QuestionDao;
 import com.SpringExaminationSystem.repository.exam.QuestionOptionDao;
 import com.SpringExaminationSystem.repository.exam.SubjectDao;
+import com.SpringExaminationSystem.repository.user.AuthInfoDao;
 import com.SpringExaminationSystem.repository.user.UserDao;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    @Autowired
-    private MajorDao majorDao;
+        @Autowired
+        private MajorDao majorDao;
 
-    @Autowired
-    private SubjectDao subjectDao;
+        @Autowired
+        private SubjectDao subjectDao;
 
-    @Autowired
-    private ChapterDao chapterDao;
+        @Autowired
+        private ChapterDao chapterDao;
 
-    @Autowired
-    private QuestionDao questionDao;
+        @Autowired
+        private QuestionDao questionDao;
 
-    @Autowired
-    private QuestionOptionDao questionOptionDao;
+        @Autowired
+        private QuestionOptionDao questionOptionDao;
 
-    @Autowired
-    private ExamDao examDao;
+        @Autowired
+        private ExamDao examDao;
 
-    @Autowired
-    private UserDao userDao;
+        @Autowired
+        private UserDao userDao;
+
+        @Autowired
+        AuthInfoDao authInfoDao;
 
     @Override
     public void run(String... args) throws Exception {
@@ -95,7 +100,17 @@ public class DataInitializer implements CommandLineRunner {
 
         // Create User (Exam Creator)
         User examCreator = new User("John", "Doe", "john.doe@university.edu");
-        userDao.save(examCreator);
+       
+
+        //Create AuthInfo
+        AuthInfo authInfo = AuthInfo.builder()
+                .userName("johndoe")
+                .password("password123") // In a real application, passwords should be hashed
+                .role(AuthInfo.ROLE_USER)
+                .user(examCreator)
+                .build();          
+
+        authInfoDao.save(authInfo);
 
         // Create Questions with Options
         List<Question> questions = Arrays.asList(
@@ -182,28 +197,28 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("- 1 User: John Doe (Exam Creator)");
     }
 
-    private Question createQuestion(String content, int difficulty, Chapter chapter, List<Object> optionsData) {
-        Question question = Question.builder()
-                .questionContent(content)
-                .difficulty(difficulty)
-                .chapter(chapter)
-                .options(new ArrayList<QuestionOption>())
-                .build();
+        private Question createQuestion(String content, int difficulty, Chapter chapter, List<Object> optionsData) {
+                Question question = Question.builder()
+                                .questionContent(content)
+                                .difficulty(difficulty)
+                                .chapter(chapter)
+                                .options(new ArrayList<QuestionOption>())
+                                .build();
 
-        // Create options for the question
-        for (int i = 0; i < optionsData.size(); i += 2) {
-            String optionContent = (String) optionsData.get(i);
-            boolean isCorrect = (Boolean) optionsData.get(i + 1);
+                // Create options for the question
+                for (int i = 0; i < optionsData.size(); i += 2) {
+                        String optionContent = (String) optionsData.get(i);
+                        boolean isCorrect = (Boolean) optionsData.get(i + 1);
 
-            QuestionOption option = QuestionOption.builder()
-                    .optionContent(optionContent)
-                    .isCorrect(isCorrect)
-                    .question(question)
-                    .build();
+                        QuestionOption option = QuestionOption.builder()
+                                        .optionContent(optionContent)
+                                        .isCorrect(isCorrect)
+                                        .question(question)
+                                        .build();
 
-            question.getOptions().add(option);
+                        question.getOptions().add(option);
+                }
+
+                return question;
         }
-
-        return question;
-    }
 }
