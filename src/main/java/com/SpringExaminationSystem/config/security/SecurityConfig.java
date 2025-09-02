@@ -15,8 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.SpringExaminationSystem.model.entity.user.AuthInfo;
-
 import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
@@ -50,7 +48,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()) // cho phép iframe
                 )
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/auth/**", "/h2-console/").permitAll()
+                        auth -> auth.requestMatchers("/api/auth/**", "/h2-console/**").permitAll()
                                 .requestMatchers("/api/user/**", "/api/exam/**").hasAnyRole("ADMIN", "USER")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))

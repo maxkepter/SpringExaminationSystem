@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.controller.exam;
+package com.SpringExaminationSystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -18,15 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-  
     @DeleteMapping("/{userId}")
     public String deleteUser(@PathVariable Integer userId) {
         userService.deleteUser(userId);
@@ -44,10 +42,8 @@ public class UserController {
     @PutMapping()
     public String editUser(@RequestBody UserDTO userDTO) {
         userService.editUser(userDTO);
-        
+
         return "Update user successfully";
     }
-    
-    
-    
+
 }
