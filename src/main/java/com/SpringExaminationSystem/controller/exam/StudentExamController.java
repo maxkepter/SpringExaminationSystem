@@ -33,7 +33,7 @@ public class StudentExamController {
         String username = authentication.getName();
 
         // Create student exam using the service
-        StudentExam studentExam = studentExamService.createStudentExam(username, request.getExamId());
+        StudentExam studentExam = studentExamService.getStudentExam(username, request.getExamId());
 
         // Convert to response DTO and return
         StudentExamResponse response = StudentExamResponse.fromEntity(studentExam);

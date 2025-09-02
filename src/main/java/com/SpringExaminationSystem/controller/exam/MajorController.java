@@ -19,7 +19,7 @@ import com.SpringExaminationSystem.repository.exam.MajorDao;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/exam")
+@RequestMapping("/api/exam")
 @RequiredArgsConstructor
 public class MajorController {
     // This controller will handle requests related to majors in the examination

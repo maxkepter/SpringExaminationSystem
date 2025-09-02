@@ -12,7 +12,7 @@ import com.SpringExaminationSystem.service.exam.SubjectService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/api/subject")
 @RequiredArgsConstructor
 public class SubjectController {
     private final SubjectService subjectService;
