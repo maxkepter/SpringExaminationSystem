@@ -25,16 +25,15 @@ public class UserService {
 
     @Autowired
     AuthInfoDao authInfoDao;
-    
+
     @Autowired
     UserMapper userMapper;
 
     @Autowired
     AuthInfoMapper authInfoMapper;
 
-
     public void editUserRole(Integer userId, Integer role) {
-        AuthInfo authInfo = authInfoDao.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));   
+        AuthInfo authInfo = authInfoDao.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         authInfo.setRole(role);
         authInfoDao.save(authInfo);
     }
@@ -44,11 +43,20 @@ public class UserService {
         userDao.deleteById(userId);
     }
 
-    public void editUser(UserDTO userDTO){
+    public void editUser(UserDTO userDTO) {
         Integer userId = userDTO.getUserId();
         User user = userDao.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user = userMapper.toEntity(userDTO);
         userDao.save(user);
     }
-    
+
+    public UserDTO getUser(Integer userId) {
+        User user = userDao.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return userMapper.toDTO(user);
+    }
+
+    public List<UserDTO> getAllUsers() {
+        List<User> userList = userDao.findAllActive();
+        return userList.stream().map(user -> userMapper.toDTO(user)).toList();
+    }
 }

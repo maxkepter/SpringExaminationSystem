@@ -15,3 +15,4 @@ public class AuthInfoDTO {
     String password;
     Integer role;
 }
+
