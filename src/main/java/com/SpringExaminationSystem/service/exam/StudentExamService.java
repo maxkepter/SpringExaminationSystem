@@ -67,8 +67,7 @@ public class StudentExamService {
 
     @Transactional(readOnly = true)
     public StudentExam reloadStudentExam(User user, Integer examId) throws IllegalArgumentException {
-        StudentExam studentExam = studentExamDao.findByUserAndExamAndStatus(user.getUserId(), examId,
-                StudentExam.EXAM_DOING)
+        StudentExam studentExam = studentExamDao.findByUserAndStatus(user.getUserId(), StudentExam.EXAM_DOING)
                 .orElseThrow(() -> new IllegalArgumentException("Student exam not found with id: " + examId));
         examLogService.createExamLog(ExamLog.EXAM_RESTARTED, studentExam);
         return studentExam;

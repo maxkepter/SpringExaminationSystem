@@ -27,7 +27,7 @@ public class Option {
     }
 
     public static List<Option> convertFromEntities(List<QuestionOption> options) {
-        return options.stream().map(o -> convertFromEntity(o)).toList();
+        return options.stream().map(Option::convertFromEntity).toList();
     }
 
     public static List<Option> randomOption(List<Option> options) {

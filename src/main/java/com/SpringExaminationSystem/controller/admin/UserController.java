@@ -1,7 +1,6 @@
-package com.SpringExaminationSystem.controller;
+package com.SpringExaminationSystem.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,17 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.SpringExaminationSystem.model.dto.common.AuthInfoDTO;
 import com.SpringExaminationSystem.model.dto.common.UserDTO;
-import com.SpringExaminationSystem.model.entity.user.User;
 import com.SpringExaminationSystem.service.exam.UserService;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
-
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/admin/user")
 public class UserController {
 
     @Autowired
