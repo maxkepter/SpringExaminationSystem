@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.SpringExaminationSystem.model.dto.common.StudentExamDTO;
+import com.SpringExaminationSystem.model.dto.response.exam.StudentExamResponse;
 import com.SpringExaminationSystem.model.entity.exam.Exam;
+import com.SpringExaminationSystem.model.entity.exam.student.StudentExam;
 import com.SpringExaminationSystem.model.mapper.exam.StudentExamMapper;
 import com.SpringExaminationSystem.repository.exam.ExamDao;
 import com.SpringExaminationSystem.repository.exam.student.StudentExamDao;
@@ -39,4 +41,12 @@ public class ExamHistoryService {
         return studentExamDao.findByUser(userId).stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
+    public StudentExamResponse getStudentExam(String userName, Integer studentExamId) {
+        StudentExam studentExam = studentExamDao.findById(studentExamId)
+                .orElseThrow(() -> new RuntimeException("Student exam not found with id: " + studentExamId));
+        if (studentExam.getCreatedBy() == null || !studentExam.getCreatedBy().equals(userName)) {
+            throw new RuntimeException("You do not have permission to view this student exam");
+        }
+        return examMapper.toResponse(studentExam);
+    }
 }

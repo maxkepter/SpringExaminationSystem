@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.controller.user;
+package com.SpringExaminationSystem.controller.student;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

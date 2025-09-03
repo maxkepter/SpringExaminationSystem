@@ -49,12 +49,14 @@ public class StudentExamService {
         Exam exam = examDao.findActiveByIdWithQuestions(examId)
                 .orElseThrow(() -> new RuntimeException("Exam not found with id: " + examId));
         List<Question> questions = exam.getQuestions();
+        List<QuestionWithOptions> questionWithOptions = QuestionWithOptions.convertFromEntities(questions);
+        QuestionWithOptions.randomQuestion(questionWithOptions);
         StudentExam studentExam = StudentExam.builder()
                 .examStatus(StudentExam.EXAM_DOING)
                 .score(0)
                 .submitTime(LocalDateTime.now())
                 .startTime(LocalDateTime.now())
-                .examDetail(QuestionWithOptions.convertFromEntities(questions))
+                .examDetail(questionWithOptions)
                 .studentChoice(new HashMap<>())
                 .exam(exam)
                 .user(user)
