@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.controller;
+package com.SpringExaminationSystem.controller.system;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

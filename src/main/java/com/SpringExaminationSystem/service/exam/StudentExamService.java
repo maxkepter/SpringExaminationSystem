@@ -13,10 +13,12 @@ import com.SpringExaminationSystem.model.entity.exam.Exam;
 import com.SpringExaminationSystem.model.entity.exam.Question;
 import com.SpringExaminationSystem.model.entity.exam.student.QuestionWithOptions;
 import com.SpringExaminationSystem.model.entity.exam.student.StudentExam;
+import com.SpringExaminationSystem.model.entity.log.ExamLog;
 import com.SpringExaminationSystem.model.entity.user.User;
 import com.SpringExaminationSystem.repository.exam.ExamDao;
 import com.SpringExaminationSystem.repository.exam.student.StudentExamDao;
 import com.SpringExaminationSystem.repository.user.AuthInfoDao;
+import com.SpringExaminationSystem.service.log.ExamLogService;
 
 @Service
 public class StudentExamService {
@@ -26,25 +28,50 @@ public class StudentExamService {
     AuthInfoDao authInfoDao;
     @Autowired
     StudentExamDao studentExamDao;
+    @Autowired
+    ExamLogService examLogService;
+
+    public StudentExam getStudentExam(String userName, Integer examId) {
+        User user = authInfoDao.findByUserName(userName).getUser();
+        StudentExam studentExam = null;
+        try {
+            studentExam = reloadStudentExam(user, examId);
+        } catch (IllegalArgumentException e) {
+            studentExam = createStudentExam(user, examId);
+        }
+
+        return studentExam;
+    }
 
     @Transactional
-    public StudentExam createStudentExam(String userName, Integer examId) {
-        User user = authInfoDao.findByUserName(userName).getUser();
+    public StudentExam createStudentExam(User user, Integer examId) {
+
         Exam exam = examDao.findActiveByIdWithQuestions(examId)
                 .orElseThrow(() -> new RuntimeException("Exam not found with id: " + examId));
         List<Question> questions = exam.getQuestions();
+        List<QuestionWithOptions> questionWithOptions = QuestionWithOptions.convertFromEntities(questions);
+        QuestionWithOptions.randomQuestion(questionWithOptions);
         StudentExam studentExam = StudentExam.builder()
                 .examStatus(StudentExam.EXAM_DOING)
                 .score(0)
                 .submitTime(LocalDateTime.now())
                 .startTime(LocalDateTime.now())
-                .examDetail(QuestionWithOptions.convertFromEntities(questions))
+                .examDetail(questionWithOptions)
                 .studentChoice(new HashMap<>())
                 .exam(exam)
                 .user(user)
                 .build();
 
         studentExamDao.save(studentExam);
+        examLogService.createExamLog(ExamLog.EXAM_STARTED, studentExam);
+        return studentExam;
+    }
+
+    @Transactional(readOnly = true)
+    public StudentExam reloadStudentExam(User user, Integer examId) throws IllegalArgumentException {
+        StudentExam studentExam = studentExamDao.findByUserAndStatus(user.getUserId(), StudentExam.EXAM_DOING)
+                .orElseThrow(() -> new IllegalArgumentException("Student exam not found with id: " + examId));
+        examLogService.createExamLog(ExamLog.EXAM_RESTARTED, studentExam);
         return studentExam;
     }
 

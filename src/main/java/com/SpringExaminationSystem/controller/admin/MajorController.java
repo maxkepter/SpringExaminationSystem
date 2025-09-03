@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.controller.exam;
+package com.SpringExaminationSystem.controller.admin;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.SpringExaminationSystem.repository.exam.MajorDao;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/exam")
+@RequestMapping("/api/admin/majors")
 @RequiredArgsConstructor
 public class MajorController {
     // This controller will handle requests related to majors in the examination
@@ -29,20 +29,20 @@ public class MajorController {
     private final MajorDao majorDao;
     private final MajorMapper majorMapper;
 
-    @PostMapping("/major")
+    @PostMapping
     public void addMajor(@RequestBody MajorDTO request) {
         System.out.println("Adding major: " + request);
         majorDao.save(majorMapper.toEntity(request));
     }
 
-    @GetMapping("/major")
+    @GetMapping
     public List<MajorDTO> getAllMajors() {
         List<Major> majors = majorDao.findAllActive();
         List<MajorDTO> majorDTOs = majors.stream().map(major -> majorMapper.toDto(major)).toList();
         return majorDTOs;
     }
 
-    @GetMapping("/major/{majorCode}")
+    @GetMapping("/{majorCode}")
     public MajorDTO getMajorByCode(@PathVariable String majorCode) {
         System.out.println("Fetching major with code: " + majorCode);
         Major major = majorDao.findActiveById(majorCode)
@@ -50,18 +50,17 @@ public class MajorController {
         return majorMapper.toDto(major);
     }
 
-    @PutMapping("/major")
-    public void updateMajor(@RequestBody MajorDTO request) {
+    @PutMapping("/{majorCode}")
+    public void updateMajor(@PathVariable String majorCode, @RequestBody MajorDTO request) {
         System.out.println("Updating major: " + request);
         Major major = majorMapper.toEntity(request);
-        if (majorDao.findActiveById(major.getMajorCode()) != null) {
-            majorDao.save(major);
-        } else {
-            throw new IllegalArgumentException("Major with code " + major.getMajorCode() + " does not exist.");
-        }
+        major.setMajorCode(majorCode);
+        majorDao.findActiveById(majorCode)
+                .orElseThrow(() -> new IllegalArgumentException("Major with code " + majorCode + " does not exist."));
+        majorDao.save(major);
     }
 
-    @DeleteMapping("/major/{majorCode}")
+    @DeleteMapping("/{majorCode}")
     public void deleteMajor(@PathVariable String majorCode) {
         System.out.println(majorCode);
         majorDao.deleteById(majorCode);

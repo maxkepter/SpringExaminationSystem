@@ -37,6 +37,7 @@ public class SubjectService {
     }
 
     public List<Subject> getAllSubjects() {
+
         return subjectDao.findAll();
     }
 }

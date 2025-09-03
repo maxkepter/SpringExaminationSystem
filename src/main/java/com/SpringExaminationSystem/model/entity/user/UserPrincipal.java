@@ -18,8 +18,15 @@ public class UserPrincipal implements UserDetails {
     @Override
     // Returns the authorities granted to the user.
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return Collections.singleton(new SimpleGrantedAuthority(AuthInfo.AUTHORIES[user.getRole()]));
+        String role = AuthInfo.AUTHORIES[user.getRole()];
+        String authority = "ROLE_" + role;
+        System.out.println("=== DEBUG: UserPrincipal.getAuthorities() ===");
+        System.out.println("User: " + user.getUserName());
+        System.out.println("User role index: " + user.getRole());
+        System.out.println("Role name: " + role);
+        System.out.println("Authority being created: " + authority);
+        System.out.println("=============================================");
+        return Collections.singleton(new SimpleGrantedAuthority(authority));
     }
 
     @Override
