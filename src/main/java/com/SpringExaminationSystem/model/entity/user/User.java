@@ -24,9 +24,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "[User]")
+@Table(name = "Users")
 @ToString
-@SQLDelete(sql = "update [User] set isActive=0 where userId=?")
+@SQLDelete(sql = "update Users set isActive=0 where userId=?")
 public class User extends BaseEntity {
 
     public User(String firstName, String lastName, String email) {
@@ -44,7 +44,7 @@ public class User extends BaseEntity {
     private String lastName;
     @Column(nullable = false)
     private String email;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private AuthInfo authInfo;
 
 }

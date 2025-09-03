@@ -1,18 +1,17 @@
-package com.SpringExaminationSystem.model.dto.common;
+package com.SpringExaminationSystem.model.dto.response.exam;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
+@Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class SubjectDTO {
-
-    String subjectCode;
-    String subjectName;
+public class OptionResponse {
+    int optionId;
+    String content;
 }

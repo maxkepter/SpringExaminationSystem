@@ -13,14 +13,21 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @MappedSuperclass
+@NoArgsConstructor
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 public abstract class BaseLog {
+
+    public BaseLog(String infomation) {
+        this.infomation = infomation;
+    }
+
     public static final String FIELD_INFOMATION = "infomation";
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)

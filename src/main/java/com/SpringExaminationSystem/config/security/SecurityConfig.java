@@ -48,8 +48,8 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()) // cho phép iframe
                 )
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/auth/**", "/h2-console/").permitAll()
-                                .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+                        auth -> auth.requestMatchers("/api/auth/**", "/h2-console/**").permitAll()
+                                .requestMatchers("/api/user/**", "/api/exam/**").hasAnyRole("ADMIN", "USER")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authenticationProvider(authProvider())
