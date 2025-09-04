@@ -37,57 +37,32 @@ public class ExamService {
     private final ExamMapper examMapper;
 
     public ExamResponse createExam(ExamCreateRequest request) {
-        Subject subject = subjectDao.findActiveById(request.getSubjectCode())
-                .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
-
-        List<Question> questions = questionDao.findAllById(request.getQuestionIds());
-        if (questions.size() != request.getQuestionIds().size()) {
-            throw new IllegalArgumentException("Some questions not found");
-        }
-        validateExamRequest(request);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
-            throw new IllegalArgumentException("User not authenticated");
-        }
-        String username = auth.getName();
-        AuthInfo authInfo = authInfoDao.findByUserName(username);
-        if (authInfo == null) {
-            throw new IllegalArgumentException("User not found");
-        }
-        User currentUser = authInfo.getUser();
-        String examCode = generateExamCode(subject.getSubjectCode());
-        Exam exam = Exam.builder()
-                .examCode(examCode)
-                .examName(request.getTitle()) // map title -> examName
-                .duration(request.getDurationMinutes())
-                .examDate(request.getStartTime()) // map startTime -> examDate
-                .deadline(request.getEndTime().toLocalDate()) // map endTime -> deadline
-                .questions(questions)
-                .user(currentUser)
-                .build();
-
-        Exam savedExam = examDao.save(exam);
-        ExamResponse examResponse = examMapper.toExamResponse(savedExam);
-
-        // Manual mapping for questions since ExamMapper ignores them
-        if (savedExam.getQuestions() != null && !savedExam.getQuestions().isEmpty()) {
-            examResponse.setQuestions(mapQuestionsToResponse(savedExam.getQuestions()));
-        }
-
-        return examResponse;
+        return createExam(request, null);
     }
 
-    public ExamResponse createExamFromTemplates(ExamCreateRequest request, List<QuestionTemplate> questionTemplates) {
+    public ExamResponse createExam(ExamCreateRequest request, List<QuestionTemplate> questionTemplates) {
         Subject subject = subjectDao.findActiveById(request.getSubjectCode())
                 .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
 
-        List<Question> questions = generateQuestionsFromTemplates(questionTemplates, subject);
+        List<Question> questions;
 
-        if (questions.isEmpty()) {
-            throw new IllegalArgumentException("No questions could be generated from templates");
+        if (questionTemplates != null && !questionTemplates.isEmpty()) {
+            questions = generateQuestionsFromTemplates(questionTemplates, subject);
+            if (questions.isEmpty()) {
+                throw new IllegalArgumentException("No questions could be generated from templates");
+            }
+            validateExamRequestForTemplate(request);
+        } else {
+            if (request.getQuestionIds() == null || request.getQuestionIds().isEmpty()) {
+                throw new IllegalArgumentException("Either questionIds or questionTemplates must be provided");
+            }
+            questions = questionDao.findAllById(request.getQuestionIds());
+            if (questions.size() != request.getQuestionIds().size()) {
+                throw new IllegalArgumentException("Some questions not found");
+            }
+            validateExamRequest(request);
         }
 
-        validateExamRequestForTemplate(request);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated()) {
             throw new IllegalArgumentException("User not authenticated");
@@ -102,10 +77,10 @@ public class ExamService {
         String examCode = generateExamCode(subject.getSubjectCode());
         Exam exam = Exam.builder()
                 .examCode(examCode)
-                .examName(request.getTitle()) // map title -> examName
+                .examName(request.getTitle())
                 .duration(request.getDurationMinutes())
-                .examDate(request.getStartTime()) // map startTime -> examDate
-                .deadline(request.getEndTime().toLocalDate()) // map endTime -> deadline
+                .examDate(request.getStartTime())
+                .deadline(request.getEndTime().toLocalDate())
                 .questions(questions)
                 .user(currentUser)
                 .build();
@@ -113,7 +88,6 @@ public class ExamService {
         Exam savedExam = examDao.save(exam);
         ExamResponse examResponse = examMapper.toExamResponse(savedExam);
 
-        // Manual mapping for questions since ExamMapper ignores them
         if (savedExam.getQuestions() != null && !savedExam.getQuestions().isEmpty()) {
             examResponse.setQuestions(mapQuestionsToResponse(savedExam.getQuestions()));
         }
@@ -125,8 +99,6 @@ public class ExamService {
         Exam exam = examDao.findActiveById(examCode)
                 .orElseThrow(() -> new IllegalArgumentException("Exam not found"));
         ExamResponse examResponse = examMapper.toExamResponse(exam);
-
-        // Manual mapping for questions since ExamMapper ignores them
         if (exam.getQuestions() != null && !exam.getQuestions().isEmpty()) {
             examResponse.setQuestions(mapQuestionsToResponse(exam.getQuestions()));
         }
@@ -139,7 +111,6 @@ public class ExamService {
                 .stream()
                 .map(exam -> {
                     ExamResponse examResponse = examMapper.toExamResponse(exam);
-                    // Manual mapping for questions since ExamMapper ignores them
                     if (exam.getQuestions() != null && !exam.getQuestions().isEmpty()) {
                         examResponse.setQuestions(mapQuestionsToResponse(exam.getQuestions()));
                     }
@@ -215,24 +186,6 @@ public class ExamService {
         }
     }
 
-    private void validateExamRequestForTemplate(ExamCreateRequest request) {
-        if (request.getTitle() == null || request.getTitle().trim().isEmpty()) {
-            throw new IllegalArgumentException("Exam title is required");
-        }
-
-        if (request.getSubjectCode() == null) {
-            throw new IllegalArgumentException("Subject Code is required");
-        }
-
-        if (request.getDurationMinutes() == null || request.getDurationMinutes() < 1) {
-            throw new IllegalArgumentException("Duration must be at least 1 minute");
-        }
-
-        if (request.getMaxAttempts() == null || request.getMaxAttempts() < 1) {
-            throw new IllegalArgumentException("Max attempts must be at least 1");
-        }
-    }
-
     private void validateExamRequest(ExamCreateRequest request) {
         if (request.getTitle() == null || request.getTitle().trim().isEmpty()) {
             throw new IllegalArgumentException("Exam title is required");
@@ -255,14 +208,29 @@ public class ExamService {
         }
     }
 
+    private void validateExamRequestForTemplate(ExamCreateRequest request) {
+        if (request.getTitle() == null || request.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Exam title is required");
+        }
+
+        if (request.getSubjectCode() == null) {
+            throw new IllegalArgumentException("Subject Code is required");
+        }
+
+        if (request.getDurationMinutes() == null || request.getDurationMinutes() < 1) {
+            throw new IllegalArgumentException("Duration must be at least 1 minute");
+        }
+
+        if (request.getMaxAttempts() == null || request.getMaxAttempts() < 1) {
+            throw new IllegalArgumentException("Max attempts must be at least 1");
+        }
+    }
+
     private String generateExamCode(String subjectCode) {
         String timestamp = String.valueOf(System.currentTimeMillis());
         return subjectCode + "-EXAM-" + timestamp.substring(timestamp.length() - 6);
     }
 
-    /**
-     * Manual mapping for questions since ExamMapper ignores them
-     */
     private java.util.List<com.SpringExaminationSystem.model.dto.response.QuestionResponse> mapQuestionsToResponse(
             List<Question> questions) {
         if (questions == null) {

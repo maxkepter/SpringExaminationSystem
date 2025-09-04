@@ -38,9 +38,9 @@ public class ExamCreateRequest {
     @Min(value = 1, message = "Max attempts must be at least 1")
     private Integer maxAttempts;
 
-    private Boolean showResultImmediately; // true = display immediately, false = do not display
+    private Boolean showResultImmediately;
 
-    private Boolean shuffleQuestions; // whether to shuffle questions
+    private Boolean shuffleQuestions;
 
-    private Boolean shuffleOptions; // whether to shuffle answers
+    private Boolean shuffleOptions;
 }
